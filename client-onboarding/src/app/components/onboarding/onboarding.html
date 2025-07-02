@@ -1,0 +1,38 @@
+<div class="onboarding-container">
+  <div class="header">
+    <h1>Onboarding Cliente</h1>
+    <p>Complete as etapas abaixo para finalizar seu cadastro</p>
+  </div>
+
+  <div class="steps-indicator">
+    <div class="steps-list">
+      @for (step of steps; track step.id; let i = $index) {
+        <div 
+          class="step-item"
+          [class.completed]="isStepCompleted(step.id)"
+          [class.active]="isStepActive(i)"
+          [class.disabled]="!canAccessStep(i)"
+          (click)="navigateToStep(step, i)">
+          <div class="step-icon">
+            @if (isStepCompleted(step.id)) {
+              <span class="check">✓</span>
+            } @else {
+              <span class="icon">{{ step.icon }}</span>
+            }
+          </div>
+          <div class="step-info">
+            <div class="step-number">{{ i + 1 }}</div>
+            <div class="step-label">{{ step.label }}</div>
+          </div>
+          @if (i < steps.length - 1) {
+            <div class="step-connector" [class.completed]="isStepCompleted(step.id)"></div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

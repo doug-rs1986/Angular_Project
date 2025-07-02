@@ -1,0 +1,167 @@
+<div class="address-container">
+  <div class="form-header">
+    <h2>Endereço</h2>
+    <p>Informe seu endereço residencial completo</p>
+  </div>
+
+  <form [formGroup]="addressForm" (ngSubmit)="onSubmit()" class="address-form">
+    <div class="form-grid">
+      <!-- CEP -->
+      <div class="form-group">
+        <label for="zipCode">CEP *</label>
+        <div class="input-with-loader">
+          <input 
+            type="text" 
+            id="zipCode" 
+            formControlName="zipCode"
+            (input)="onZipCodeInput($event)"
+            [class.error]="isFieldInvalid('zipCode')"
+            placeholder="00000-000"
+            maxlength="9">
+          @if (isLoadingAddress) {
+            <div class="loader">🔄</div>
+          }
+        </div>
+        @if (isFieldInvalid('zipCode')) {
+          <span class="error-message">{{ getFieldError('zipCode') }}</span>
+        }
+      </div>
+
+      <!-- Número -->
+      <div class="form-group">
+        <label for="number">Número *</label>
+        <input 
+          type="text" 
+          id="number" 
+          formControlName="number"
+          [class.error]="isFieldInvalid('number')"
+          placeholder="123">
+        @if (isFieldInvalid('number')) {
+          <span class="error-message">{{ getFieldError('number') }}</span>
+        }
+      </div>
+
+      <!-- Rua -->
+      <div class="form-group full-width">
+        <label for="street">Logradouro *</label>
+        <input 
+          type="text" 
+          id="street" 
+          formControlName="street"
+          [class.error]="isFieldInvalid('street')"
+          placeholder="Rua, Avenida, Travessa..."
+          [readonly]="isLoadingAddress">
+        @if (isFieldInvalid('street')) {
+          <span class="error-message">{{ getFieldError('street') }}</span>
+        }
+      </div>
+
+      <!-- Complemento -->
+      <div class="form-group full-width">
+        <label for="complement">Complemento (Opcional)</label>
+        <input 
+          type="text" 
+          id="complement" 
+          formControlName="complement"
+          placeholder="Apartamento, Bloco, Casa...">
+      </div>
+
+      <!-- Bairro -->
+      <div class="form-group">
+        <label for="neighborhood">Bairro *</label>
+        <input 
+          type="text" 
+          id="neighborhood" 
+          formControlName="neighborhood"
+          [class.error]="isFieldInvalid('neighborhood')"
+          placeholder="Nome do bairro"
+          [readonly]="isLoadingAddress">
+        @if (isFieldInvalid('neighborhood')) {
+          <span class="error-message">{{ getFieldError('neighborhood') }}</span>
+        }
+      </div>
+
+      <!-- Cidade -->
+      <div class="form-group">
+        <label for="city">Cidade *</label>
+        <input 
+          type="text" 
+          id="city" 
+          formControlName="city"
+          [class.error]="isFieldInvalid('city')"
+          placeholder="Nome da cidade"
+          [readonly]="isLoadingAddress">
+        @if (isFieldInvalid('city')) {
+          <span class="error-message">{{ getFieldError('city') }}</span>
+        }
+      </div>
+
+      <!-- Estado -->
+      <div class="form-group">
+        <label for="state">Estado *</label>
+        <select 
+          id="state" 
+          formControlName="state"
+          [class.error]="isFieldInvalid('state')"
+          [disabled]="isLoadingAddress">
+          <option value="">Selecione...</option>
+          <option value="AC">Acre</option>
+          <option value="AL">Alagoas</option>
+          <option value="AP">Amapá</option>
+          <option value="AM">Amazonas</option>
+          <option value="BA">Bahia</option>
+          <option value="CE">Ceará</option>
+          <option value="DF">Distrito Federal</option>
+          <option value="ES">Espírito Santo</option>
+          <option value="GO">Goiás</option>
+          <option value="MA">Maranhão</option>
+          <option value="MT">Mato Grosso</option>
+          <option value="MS">Mato Grosso do Sul</option>
+          <option value="MG">Minas Gerais</option>
+          <option value="PA">Pará</option>
+          <option value="PB">Paraíba</option>
+          <option value="PR">Paraná</option>
+          <option value="PE">Pernambuco</option>
+          <option value="PI">Piauí</option>
+          <option value="RJ">Rio de Janeiro</option>
+          <option value="RN">Rio Grande do Norte</option>
+          <option value="RS">Rio Grande do Sul</option>
+          <option value="RO">Rondônia</option>
+          <option value="RR">Roraima</option>
+          <option value="SC">Santa Catarina</option>
+          <option value="SP">São Paulo</option>
+          <option value="SE">Sergipe</option>
+          <option value="TO">Tocantins</option>
+        </select>
+        @if (isFieldInvalid('state')) {
+          <span class="error-message">{{ getFieldError('state') }}</span>
+        }
+      </div>
+
+      <!-- País -->
+      <div class="form-group">
+        <label for="country">País *</label>
+        <input 
+          type="text" 
+          id="country" 
+          formControlName="country"
+          [class.error]="isFieldInvalid('country')"
+          readonly>
+        @if (isFieldInvalid('country')) {
+          <span class="error-message">{{ getFieldError('country') }}</span>
+        }
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="btn-secondary" (click)="goBack()">
+        <span class="arrow">←</span>
+        Voltar
+      </button>
+      <button type="submit" class="btn-primary" [disabled]="addressForm.invalid || isLoadingAddress">
+        Próximo: Informações Profissionais
+        <span class="arrow">→</span>
+      </button>
+    </div>
+  </form>
+</div>

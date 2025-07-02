@@ -1,0 +1,16 @@
+{
+  "name": "client-onboarding",
+  "version": "1.0.0",
+  "description": "SPA Angular para onboarding de clientes pessoa física",
+  "keywords": ["angular", "onboarding", "spa", "typescript", "forms"],
+  "author": "Desenvolvedor Angular",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/username/client-onboarding.git"
+  },
+  "bugs": {
+    "url": "https://github.com/username/client-onboarding/issues"
+  },
+  "homepage": "https://github.com/username/client-onboarding#readme"
+}

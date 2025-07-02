@@ -1,0 +1,172 @@
+<div class="summary-container">
+  <div class="form-header">
+    <h2>Resumo do Cadastro</h2>
+    <p>Revise suas informações antes de finalizar o cadastro</p>
+  </div>
+
+  <div class="summary-content">
+    <!-- Dados Pessoais -->
+    <div class="summary-section">
+      <div class="section-header">
+        <h3>
+          <span class="icon">👤</span>
+          Dados Pessoais
+        </h3>
+        <button type="button" class="edit-btn" (click)="editSection('personal')">
+          <span>✏️</span> Editar
+        </button>
+      </div>
+      <div class="section-content">
+        <div class="info-grid">
+          <div class="info-item">
+            <label>Nome Completo:</label>
+            <span>{{ clientData.personalData?.fullName }}</span>
+          </div>
+          <div class="info-item">
+            <label>Data de Nascimento:</label>
+            <span>{{ formatDate(clientData.personalData?.dateOfBirth!) }}</span>
+          </div>
+          <div class="info-item">
+            <label>Email:</label>
+            <span>{{ clientData.personalData?.email }}</span>
+          </div>
+          <div class="info-item">
+            <label>Telefone:</label>
+            <span>{{ formatPhone(clientData.personalData?.phone!) }}</span>
+          </div>
+          <div class="info-item">
+            <label>Gênero:</label>
+            <span>{{ getGenderLabel(clientData.personalData?.gender!) }}</span>
+          </div>
+          <div class="info-item">
+            <label>Estado Civil:</label>
+            <span>{{ getMaritalStatusLabel(clientData.personalData?.maritalStatus!) }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Documentos -->
+    <div class="summary-section">
+      <div class="section-header">
+        <h3>
+          <span class="icon">📋</span>
+          Documentos
+        </h3>
+        <button type="button" class="edit-btn" (click)="editSection('documents')">
+          <span>✏️</span> Editar
+        </button>
+      </div>
+      <div class="section-content">
+        <div class="info-grid">
+          <div class="info-item">
+            <label>CPF:</label>
+            <span>{{ formatCpf(clientData.documents?.cpf!) }}</span>
+          </div>
+          <div class="info-item">
+            <label>RG:</label>
+            <span>{{ clientData.documents?.rg }}</span>
+          </div>
+          <div class="info-item">
+            <label>Órgão Emissor:</label>
+            <span>{{ clientData.documents?.rgIssuingAgency }}</span>
+          </div>
+          <div class="info-item">
+            <label>Data de Emissão:</label>
+            <span>{{ formatDate(clientData.documents?.rgIssueDate!) }}</span>
+          </div>
+          @if (clientData.documents?.cnh) {
+            <div class="info-item">
+              <label>CNH:</label>
+              <span>{{ clientData.documents?.cnh }}</span>
+            </div>
+            <div class="info-item">
+              <label>Categoria CNH:</label>
+              <span>{{ clientData.documents?.cnhCategory }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Endereço -->
+    <div class="summary-section">
+      <div class="section-header">
+        <h3>
+          <span class="icon">🏠</span>
+          Endereço
+        </h3>
+        <button type="button" class="edit-btn" (click)="editSection('address')">
+          <span>✏️</span> Editar
+        </button>
+      </div>
+      <div class="section-content">
+        <div class="info-item full-width">
+          <label>Endereço Completo:</label>
+          <span>{{ getFullAddress() }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Informações Profissionais -->
+    <div class="summary-section">
+      <div class="section-header">
+        <h3>
+          <span class="icon">💼</span>
+          Informações Profissionais
+        </h3>
+        <button type="button" class="edit-btn" (click)="editSection('professional')">
+          <span>✏️</span> Editar
+        </button>
+      </div>
+      <div class="section-content">
+        <div class="info-grid">
+          <div class="info-item">
+            <label>Empresa:</label>
+            <span>{{ clientData.professionalInfo?.companyName }}</span>
+          </div>
+          <div class="info-item">
+            <label>Cargo:</label>
+            <span>{{ clientData.professionalInfo?.position }}</span>
+          </div>
+          <div class="info-item">
+            <label>Área de Atuação:</label>
+            <span>{{ clientData.professionalInfo?.workArea }}</span>
+          </div>
+          <div class="info-item">
+            <label>Data de Início:</label>
+            <span>{{ formatDate(clientData.professionalInfo?.startDate!) }}</span>
+          </div>
+          <div class="info-item">
+            <label>Tempo de Experiência:</label>
+            <span>{{ getExperienceText() }}</span>
+          </div>
+          <div class="info-item">
+            <label>Renda Mensal:</label>
+            <span>{{ formatCurrency(clientData.professionalInfo?.monthlyIncome!) }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <button type="button" class="btn-secondary" (click)="goBack()" [disabled]="isSubmitting">
+      <span class="arrow">←</span>
+      Voltar
+    </button>
+    <button 
+      type="button" 
+      class="btn-primary" 
+      (click)="submitOnboarding()" 
+      [disabled]="isSubmitting">
+      @if (isSubmitting) {
+        <span class="spinner">⏳</span>
+        Finalizando...
+      } @else {
+        Finalizar Cadastro
+        <span class="check">✓</span>
+      }
+    </button>
+  </div>
+</div>

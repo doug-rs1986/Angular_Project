@@ -1,0 +1,138 @@
+<div class="professional-container">
+  <div class="form-header">
+    <h2>Informações Profissionais</h2>
+    <p>Conte-nos sobre sua experiência profissional atual</p>
+  </div>
+
+  <form [formGroup]="professionalForm" (ngSubmit)="onSubmit()" class="professional-form">
+    <div class="form-grid">
+      <!-- Nome da Empresa -->
+      <div class="form-group full-width">
+        <label for="companyName">Nome da Empresa *</label>
+        <input 
+          type="text" 
+          id="companyName" 
+          formControlName="companyName"
+          [class.error]="isFieldInvalid('companyName')"
+          placeholder="Digite o nome da empresa onde trabalha">
+        @if (isFieldInvalid('companyName')) {
+          <span class="error-message">{{ getFieldError('companyName') }}</span>
+        }
+      </div>
+
+      <!-- Cargo -->
+      <div class="form-group full-width">
+        <label for="position">Cargo/Função *</label>
+        <input 
+          type="text" 
+          id="position" 
+          formControlName="position"
+          [class.error]="isFieldInvalid('position')"
+          placeholder="Digite seu cargo ou função atual">
+        @if (isFieldInvalid('position')) {
+          <span class="error-message">{{ getFieldError('position') }}</span>
+        }
+      </div>
+
+      <!-- Área de Atuação -->
+      <div class="form-group full-width">
+        <label for="workArea">Área de Atuação *</label>
+        <select 
+          id="workArea" 
+          formControlName="workArea"
+          [class.error]="isFieldInvalid('workArea')">
+          <option value="">Selecione sua área de atuação...</option>
+          @for (area of workAreas; track area) {
+            <option [value]="area">{{ area }}</option>
+          }
+        </select>
+        @if (isFieldInvalid('workArea')) {
+          <span class="error-message">{{ getFieldError('workArea') }}</span>
+        }
+      </div>
+
+      <!-- Data de Início -->
+      <div class="form-group">
+        <label for="startDate">Data de Início no Cargo *</label>
+        <input 
+          type="date" 
+          id="startDate" 
+          formControlName="startDate"
+          [class.error]="isFieldInvalid('startDate')">
+        @if (isFieldInvalid('startDate')) {
+          <span class="error-message">{{ getFieldError('startDate') }}</span>
+        }
+      </div>
+
+      <!-- Renda Mensal -->
+      <div class="form-group">
+        <label for="monthlyIncome">Renda Mensal *</label>
+        <input 
+          type="text" 
+          id="monthlyIncome" 
+          (input)="onIncomeInput($event)"
+          [class.error]="isFieldInvalid('monthlyIncome')"
+          placeholder="R$ 0,00">
+        @if (isFieldInvalid('monthlyIncome')) {
+          <span class="error-message">{{ getFieldError('monthlyIncome') }}</span>
+        }
+      </div>
+
+      <!-- Experiência - Anos -->
+      <div class="form-group">
+        <label for="experienceYears">Tempo de Experiência - Anos *</label>
+        <input 
+          type="number" 
+          id="experienceYears" 
+          formControlName="experienceYears"
+          [class.error]="isFieldInvalid('experienceYears')"
+          min="0" 
+          max="50"
+          placeholder="0">
+        @if (isFieldInvalid('experienceYears')) {
+          <span class="error-message">{{ getFieldError('experienceYears') }}</span>
+        }
+      </div>
+
+      <!-- Experiência - Meses -->
+      <div class="form-group">
+        <label for="experienceMonths">Meses Adicionais *</label>
+        <input 
+          type="number" 
+          id="experienceMonths" 
+          formControlName="experienceMonths"
+          [class.error]="isFieldInvalid('experienceMonths')"
+          min="0" 
+          max="11"
+          placeholder="0">
+        @if (isFieldInvalid('experienceMonths')) {
+          <span class="error-message">{{ getFieldError('experienceMonths') }}</span>
+        }
+      </div>
+    </div>
+
+    <!-- Resumo da Experiência -->
+    @if (getTotalExperience()) {
+      <div class="experience-summary">
+        <div class="summary-card">
+          <div class="summary-icon">⏱️</div>
+          <div class="summary-content">
+            <h4>Tempo Total de Experiência</h4>
+            <p>{{ getTotalExperience() }}</p>
+          </div>
+        </div>
+      </div>
+    }
+
+    <div class="form-actions">
+      <button type="button" class="btn-secondary" (click)="goBack()">
+        <span class="arrow">←</span>
+        Voltar
+      </button>
+      <button type="submit" class="btn-primary" [disabled]="professionalForm.invalid">
+        Próximo: Resumo
+        <span class="arrow">→</span>
+      </button>
+    </div>
+  </form>
+</div>
