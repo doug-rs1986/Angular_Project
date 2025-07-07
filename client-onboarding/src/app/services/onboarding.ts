@@ -67,6 +67,15 @@ export class OnboardingService {
     }
   }
 
+  getFirstIncompleteStepRoute(): string {
+    const data = this.getClientData();
+    if (!this.isStepComplete('personal')) return '/onboarding/personal-data';
+    if (!this.isStepComplete('documents')) return '/onboarding/documents';
+    if (!this.isStepComplete('address')) return '/onboarding/address';
+    if (!this.isStepComplete('professional')) return '/onboarding/professional-info';
+    return '/onboarding/summary';
+  }
+
   async searchAddressByZipCode(zipCode: string): Promise<Partial<Address> | null> {
     try {
       const response = await fetch(`https://viacep.com.br/ws/${zipCode.replace(/\D/g, '')}/json/`);

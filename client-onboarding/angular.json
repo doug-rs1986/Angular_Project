@@ -19,7 +19,8 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              }
+              },
+              "src/meu_favicon.ico"
             ],
             "styles": [
               "src/styles.css"

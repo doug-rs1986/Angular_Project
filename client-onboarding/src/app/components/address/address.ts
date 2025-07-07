@@ -41,7 +41,6 @@ export class Address implements OnInit {
 
   onZipCodeInput(event: any) {
     let value = event.target.value.replace(/\D/g, '');
-    
     if (value.length <= 8) {
       if (value.length > 5) {
         value = value.replace(/(\d{5})(\d{3})/, '$1-$2');
@@ -57,10 +56,10 @@ export class Address implements OnInit {
 
   async searchAddressByZipCode(zipCode: string) {
     this.isLoadingAddress = true;
-    
+    console.log('[BuscaCEP] CEP enviado:', zipCode);
     try {
       const addressData = await this.onboardingService.searchAddressByZipCode(zipCode);
-      
+      console.log('[BuscaCEP] Resposta da API:', addressData);
       if (addressData) {
         this.addressForm.patchValue({
           street: addressData.street || '',
